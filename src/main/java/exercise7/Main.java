@@ -2,10 +2,14 @@
 constructor. Create 3 instances of the Employee class and add them to a list. Using
 streams, find first Employee that is not null and has salary of at least 30000. If not found,
 throw exception.*/
+
+//Based on employees list from previous exercise, using streams create new list with employees sorted by name.
 package exercise7;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -23,5 +27,13 @@ public class Main {
                 .orElseThrow(() -> new IllegalArgumentException("No employee found with salary >= 30000"));
 
         System.out.println(employee);
+
+
+        List<Employee> sortedList = employeeList.stream()
+                .filter(e -> e.getName() != null)
+                .sorted(Comparator.comparing(e -> e.getName()))
+                .collect(Collectors.toList());
+
+        System.out.println(sortedList);
     }
 }
