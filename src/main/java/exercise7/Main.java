@@ -4,6 +4,8 @@ streams, find first Employee that is not null and has salary of at least 30000. 
 throw exception.*/
 
 //Based on employees list from previous exercise, using streams create new list with employees sorted by name.
+
+//Based on employees list from exercise 7, using streams get a number representing maximum salary of all employees.
 package exercise7;
 
 import java.util.Arrays;
@@ -32,8 +34,16 @@ public class Main {
         List<Employee> sortedList = employeeList.stream()
                 .filter(e -> e.getName() != null)
                 .sorted(Comparator.comparing(e -> e.getName()))
-                .collect(Collectors.toList());
+                .toList();
 
-        System.out.println(sortedList);
+        System.out.println("Sorted list: " + sortedList);
+
+
+        int maxSalary = employeeList.stream()
+                .mapToInt(Employee::getSalary)
+                .max()
+                .orElseThrow(() -> new IllegalArgumentException("No employee found"));
+
+        System.out.println("Maximum salary: " + maxSalary);
     }
 }
